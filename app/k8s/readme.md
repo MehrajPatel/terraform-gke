@@ -1,0 +1,1 @@
+all the kubernetes related yml files like deployments, services goes in this folder
