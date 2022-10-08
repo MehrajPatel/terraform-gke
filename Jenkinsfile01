@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tool {
+      maven 3.8.6
+     }
 
     stages {
         stage('Git Clone') {
@@ -7,6 +10,18 @@ pipeline {
                 git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/quadrimuzammil/terraform-gke.git'
             }
         }
-        
-    }
+     stage('mvn build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }   
+  stage('Build Docker Image') {
+            steps {
+                docker build -t quadrimuzammil/javaapp:${BuildNumber} .
+            }
+        }
+  
+  
+  
+  }
     }
