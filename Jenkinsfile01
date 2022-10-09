@@ -4,14 +4,14 @@ pipeline {
     stages {
     stage('Terraform init') {
             steps {
-                cd ./infra/terraform/
-                terraform init
+                sh 'cd ./infra/terraform/'
+                sh 'terraform init -input=false'
                 }
         } 
      stage('Terraform deploy') {
             steps {
-                cd ./infra/terraform/
-                terraform deploy --auto-approve
+                sh 'cd ./infra/terraform/'
+                sh 'terraform deploy --auto-approve'
            }
         } 
     }
