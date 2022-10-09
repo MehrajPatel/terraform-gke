@@ -2,11 +2,17 @@ pipeline {
     agent any
 
     stages {
-        stage('Git Clone') {
+    stage('Terraform init') {
             steps {
-                git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/quadrimuzammil/terraform-gke.git'
-            }
-        }
-        
+                cd ./infra/terraform/
+                terraform init
+                }
+        } 
+     stage('Terraform deploy') {
+            steps {
+                cd ./infra/terraform/
+                terraform deploy --auto-approve
+           }
+        } 
     }
-    }
+ }
