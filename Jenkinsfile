@@ -1,26 +1,24 @@
 pipeline {
     agent any
+tools {
+  terraform 'terraform'
+}
+
 
     stages {
-        stage('Git Clone') {
+        stage('Git_Clone') {
             steps {
-                echo 'Building java app'
-            }
+            git branch: 'main', credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/quadrimuzammil/terraform-gke-01.git'
+          }
         }
-        stage('Build Docker') {
-            steps {
-                echo 'Building docker image and pushing into ECR'
-            }
+        
+        stage ('Terraform init') {
+           steps{
+                sh 'terraform init'
+                   
+           }
         }
-        stage('Deploy EKS') {
-            steps {
-                echo 'Deploying EKS cluster using terraform'
-            }
-        }
-        stage('Deploy App') {
-            steps {
-                echo 'Deploying app into the EKS'
-            }
-        }
+   
+   
     }
 }
