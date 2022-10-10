@@ -2,25 +2,18 @@ pipeline {
     agent any
 
     stages {
-        stage('Git Clone') {
+    stage('Terraform init') {
             steps {
-                echo 'Building java app'
-            }
-        }
-        stage('Build Docker') {
+                sh 'pwd'
+                sh 'cd ./infra/terraform/'
+                sh 'terraform init -input=false'
+                }
+        } 
+     stage('Terraform deploy') {
             steps {
-                echo 'Building docker image and pushing into ECR'
-            }
-        }
-        stage('Deploy EKS') {
-            steps {
-                echo 'Deploying EKS cluster using terraform'
-            }
-        }
-        stage('Deploy App') {
-            steps {
-                echo 'Deploying app into the EKS'
-            }
-        }
+                sh 'cd ./infra/terraform/'
+                sh 'terraform apply --auto-approve'
+           }
+        } 
     }
-}
+ }
