@@ -5,10 +5,11 @@ pipeline {
     stage('Terraform init') {
             steps {
                 sh 'pwd'
-                sh 'cd ./infra/terraform/'
-                sh 'terraform init -input=false'
-                }
-        } 
+                dir("infra/terraform") { // this was added
+                    sh 'terraform init'
+               }
+           }
+        }
      stage('Terraform deploy') {
             steps {
                 sh 'cd ./infra/terraform/'
