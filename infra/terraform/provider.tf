@@ -1,5 +1,5 @@
 provider "google" {
-  project = "gcpapp-365010"
+  project = "canvas-rampart-364906"
   region  = "asia"
 }
 
