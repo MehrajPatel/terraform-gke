@@ -14,7 +14,7 @@ tools {
         
         stage ('Terraform init') {
            steps{
-                sh 'terraform init  /infra/terraform'
+                sh 'terraform init -f /infra/terraform'
                    
            }
         }
