@@ -5,8 +5,8 @@ pipeline {
     stage('Terraform init') {
             steps {
                 sh 'pwd'
-                dir("infra/terraform") { // this was added
-                    sh 'terraform init'
+                dir("infra/terraform") { // this was added - sahi hai ek baar try kro
+                sh 'terraform init'
                }
            }
         }
