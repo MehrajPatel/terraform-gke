@@ -1,11 +1,11 @@
 provider "google" {
-  project = "<project-id>"
-  region  = "us-central1"
+  project = "gcpapp-365010"
+  region  = "asia"
 }
 
 terraform {
   backend "gcs" {
-    bucket = "<your-bucket>"
+    bucket = "gcpve02"
     prefix = "terraform/state"
   }
   required_providers {
