@@ -1,6 +1,6 @@
 provider "google" {
   project = "canvas-rampart-364906"
-  region  = "asia"
+  region  = "us-central1"
 }
 
 terraform {
