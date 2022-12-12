@@ -1,2 +1,4 @@
-FROM 9-jdk11-corretto
-COPY .  /usr/local/tomcat/webapps
+FROM anapsix/alpine-java
+MAINTAINER qa-consultant
+COPY my-app-1.jar /home/my-app-1.jar
+CMD ["java","-jar","my-app-1.jar"]
