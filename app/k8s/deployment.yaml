@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment
+  labels:
+    app: my-app
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: my-app
+      
+  template:
+    metadata:
+      labels:
+        app: my-app
+        tier: my-app
+    spec:
+      containers:
+        - name: my-app
+          image: gcr.io/canvas-rampart-364906/my-app:latest
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080
+            name: my-app
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: my-app
+    tier: my-app
+  type: LoadBalancer
