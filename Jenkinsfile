@@ -7,6 +7,10 @@ tools {
 
  environment {
     buildNumber = "BUILD_NUMBER"
+     PROJECT_ID = 'canvas-rampart-364906'
+    CLUSTER_NAME = 'gcp-project'
+    LOCATION = 'us-central1-a'
+    CREDENTIALS_ID = 'My First Project'
     }
 
     stages {
@@ -21,10 +25,8 @@ tools {
                 dir("infra/terraform") { // this was added
                     sh 'terraform init'
                }
-                
-                 
             }
-        } 
+     } 
      stage('Terraform deploy') {
             steps {
                  sh 'pwd'
@@ -61,14 +63,18 @@ tools {
     sh 'gcloud auth configure-docker'
     sh 'docker push gcr.io/canvas-rampart-364906/my-app:${BUILD_NUMBER}'
  }
-    
-             }
-        } 
-            
-                
-    }
-    
-        
+      }
+    } 
+  }
+       stage('Deploy to GKE') {
+            steps{
+             sh 'pwd'
+             dir("app/k8s") {    
+                sh "sed -i 's/my-app:latest/my-app:${BUILD_NUMBER}/g' deployment.yaml"
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+            }
+        }
+    } 
 
     
    
