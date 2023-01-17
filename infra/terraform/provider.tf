@@ -1,11 +1,11 @@
 provider "google" {
-  project = "canvas-rampart-364906"
+  project = "devops-374009"
   region  = "us-central1"
 }
 
 terraform {
   backend "gcs" {
-    bucket = "gcpve02"
+    bucket = "webappze"
     prefix = "terraform/state"
   }
   required_providers {
